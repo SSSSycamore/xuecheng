@@ -10,6 +10,7 @@
     </parent>
     <groupId>com.xuecheng</groupId>
     <artifactId>xuecheng-plus-base</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
