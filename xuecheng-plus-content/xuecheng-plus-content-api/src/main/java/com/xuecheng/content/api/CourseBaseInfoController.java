@@ -10,6 +10,7 @@ import com.xuecheng.content.service.CourseBaseInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -31,7 +32,7 @@ public class CourseBaseInfoController {
 
     @ApiOperation(value = "新增课程接口")
     @PostMapping("/course")
-    public CourseBaseInfoDto  createCourseBase(@RequestBody AddCourseDto addCourseDto) {
+    public CourseBaseInfoDto  createCourseBase(@RequestBody @Validated AddCourseDto addCourseDto) {
         Long companyId = 1232141425L;
         return courseBaseInfoService.createCourseBase(companyId,addCourseDto);
     }

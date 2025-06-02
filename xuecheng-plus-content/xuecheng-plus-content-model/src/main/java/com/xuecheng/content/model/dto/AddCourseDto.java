@@ -46,6 +46,7 @@ public class AddCourseDto {
     private String teachmode;
 
     @ApiModelProperty(value = "课程介绍")
+    @Size(message = "课程介绍不能少于10个字符", min = 10)
     private String description;
 
     @ApiModelProperty(value = "课程图片", required = true)
@@ -59,7 +60,6 @@ public class AddCourseDto {
     private Float price;
     @ApiModelProperty(value = "原价")
     private Float originalPrice;
-
 
     @ApiModelProperty(value = "qq")
     private String qq;
