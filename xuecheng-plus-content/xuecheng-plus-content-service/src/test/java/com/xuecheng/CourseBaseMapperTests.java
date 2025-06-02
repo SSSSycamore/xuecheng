@@ -48,4 +48,10 @@ class CourseBaseMapperTests {
         PageResult<CourseBase> courseBasePageResult = new PageResult<>(records, total, pageParams.getPageNo(), pageParams.getPageSize());
         System.out.println("courseBasePageResult = " + courseBasePageResult);
     }
+
+    @Test
+    public void testCommon(){
+        String str = "hello";
+        System.out.println(str.getClass());
+    }
 }
