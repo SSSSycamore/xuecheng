@@ -18,4 +18,13 @@
         id, name, label, parentid, is_show, orderby, is_leaf
     </sql>
 
+    <select id="selectTreeNodes" resultType="com.xuecheng.content.model.vo.CourseCategoryTreeVO"
+            parameterType="java.lang.String">
+        with recursive t1 as (
+            select * from course_category where id = #{id}
+            union ALL
+            select t.* from course_category t,t1 where t.parentid = t1.id
+        )
+        select * from t1 order by t1.id,t1.orderby
+    </select>
 </mapper>
