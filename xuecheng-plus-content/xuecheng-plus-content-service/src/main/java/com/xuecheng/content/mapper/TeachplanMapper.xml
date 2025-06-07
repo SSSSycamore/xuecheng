@@ -91,11 +91,14 @@
                m1.id             teachplanMeidaId,
                m1.media_id       mediaId
         from teachplan one
-                 inner join teachplan two on one.id = two.parentId
+                 left join teachplan two on one.id = two.parentId
                  left join teachplan_media m1 on two.id = m1.teachplan_id
         where one.parentId = 0
           and one.course_id = #{courseId}
         order by one.orderby, two.orderby
     </select>
 
+    <select id="getMaxOrderBy" resultType="java.lang.Integer">
+        SELECT MAX(orderby) FROM teachplan WHERE course_id = #{courseId} and parentid = #{parentId}
+    </select>
 </mapper>
