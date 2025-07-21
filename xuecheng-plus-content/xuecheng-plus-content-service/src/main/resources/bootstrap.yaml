@@ -10,5 +10,9 @@ spring:
         file-extension: yaml # 文件后缀名
         server-addr: 192.168.100.128:8848
         refresh-enabled: true
+        shared-configs:
+          - data-id: feign-${spring.profiles.active}.yaml
+            group: xuecheng-plus-common
+            refresh: true
   profiles:
     active: dev

@@ -8,6 +8,7 @@ spring:
       discovery:
         namespace: 89c4484f-2018-4a42-bb71-83e82fb2810a
         group: xuecheng-plus-project
+        server-addr: 192.168.100.128:8848
       config:
         namespace: 89c4484f-2018-4a42-bb71-83e82fb2810a
         group: xuecheng-plus-project

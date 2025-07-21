@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xuecheng.content.model.po.Teachplan;
 import com.xuecheng.content.model.dto.TeachplanDto;
 import org.apache.ibatis.annotations.Param;
-
+import java.lang.Integer;
 import java.util.List;
 
 /**
@@ -18,5 +18,5 @@ public interface TeachplanMapper extends BaseMapper<Teachplan> {
 
     List<TeachplanDto> selectTreeNodes(Long courseId);
 
-    int getMaxOrderBy(@Param("courseId") Long courseId,@Param("parentId") Long parentId);
+    Integer getMaxOrderBy(@Param("courseId") Long courseId,@Param("parentId") Long parentId);
 }

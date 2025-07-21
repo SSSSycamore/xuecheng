@@ -42,7 +42,11 @@ public class TeachplanServiceImpl implements TeachplanService {
             teachplanMapper.updateById(teachplan);
         }else{
             //取出同父同级别的课程计划数量
-            int count = teachplanMapper.getMaxOrderBy(teachplanDto.getCourseId(), teachplanDto.getParentid());
+            Integer count = teachplanMapper.getMaxOrderBy(teachplanDto.getCourseId(), teachplanDto.getParentid());
+            //如果没有同级别的课程计划，则设置排序号为1
+            if (count == null) {
+                count = 0;
+            }
             Teachplan teachplanNew = new Teachplan();
             //设置排序号
             teachplanNew.setOrderby(count+1);
