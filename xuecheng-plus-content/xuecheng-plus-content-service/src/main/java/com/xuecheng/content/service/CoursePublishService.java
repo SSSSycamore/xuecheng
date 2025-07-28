@@ -1,6 +1,7 @@
 package com.xuecheng.content.service;
 
 import com.xuecheng.content.model.dto.CoursePreviewDto;
+import com.xuecheng.content.model.po.CoursePublish;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,4 +47,6 @@ public interface CoursePublishService {
     public void uploadCourseHtml(Long courseId, File file);
 
     void addEs() throws IOException;
+
+    public CoursePublish getCoursePublish(Long courseId);
 }

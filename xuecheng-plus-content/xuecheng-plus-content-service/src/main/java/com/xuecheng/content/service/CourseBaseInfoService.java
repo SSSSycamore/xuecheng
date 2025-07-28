@@ -27,7 +27,7 @@ public interface CourseBaseInfoService {
      * @author Mr.M
      * @date 2022/9/6 21:44
      */
-    PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParamsDto);
+    PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParamsDto, Long companyId);
 
     CourseBaseInfoDto createCourseBase(Long companyId,AddCourseDto addCourseDto);
 

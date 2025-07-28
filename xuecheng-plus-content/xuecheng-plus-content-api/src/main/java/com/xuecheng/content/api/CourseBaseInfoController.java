@@ -9,9 +9,11 @@ import com.xuecheng.content.model.dto.EditCourseDto;
 import com.xuecheng.content.model.dto.QueryCourseParamsDto;
 import com.xuecheng.content.model.po.CourseBase;
 import com.xuecheng.content.service.CourseBaseInfoService;
+import com.xuecheng.content.util.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +28,15 @@ public class CourseBaseInfoController {
     private final CourseBaseInfoService courseBaseInfoService;
 
     @ApiOperation(value = "课程查询接口", notes = "根据条件分页查询课程信息")
+    @PreAuthorize("hasAuthority('xc_teachmanager_course_list')") // 权限校验
     @PostMapping("/course/list")
     public PageResult<CourseBase> list(PageParams pageParams,@RequestBody(required=false) QueryCourseParamsDto queryCourseParamsDto){
-        PageResult pageResult = courseBaseInfoService.queryCourseBaseList(pageParams, queryCourseParamsDto);
+        SecurityUtil.XcUser user = SecurityUtil.getUser();
+        Long companyId = null;
+        if (user != null) {
+            companyId = Long.parseLong(user.getCompanyId());
+        }
+        PageResult pageResult = courseBaseInfoService.queryCourseBaseList(pageParams, queryCourseParamsDto,companyId);
         return pageResult;
     }
 

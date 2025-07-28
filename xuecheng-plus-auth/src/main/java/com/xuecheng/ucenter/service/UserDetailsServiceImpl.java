@@ -2,9 +2,11 @@ package com.xuecheng.ucenter.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.xuecheng.ucenter.mapper.XcMenuMapper;
 import com.xuecheng.ucenter.mapper.XcUserMapper;
 import com.xuecheng.ucenter.model.dto.AuthParamsDto;
 import com.xuecheng.ucenter.model.dto.XcUserExt;
+import com.xuecheng.ucenter.model.po.XcMenu;
 import com.xuecheng.ucenter.model.po.XcUser;
 import com.xuecheng.ucenter.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Mr.M
@@ -30,6 +34,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     XcUserMapper xcUserMapper;
     @Autowired
     ApplicationContext applicationContext;
+    @Autowired
+    XcMenuMapper xcMenuMapper;
 
     /**
      * @description 查询用户信息组成用户身份信息
@@ -60,7 +66,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDetails userToUserDetails(XcUserExt user) {
         //用户权限,如果不加报Cannot pass a null GrantedAuthority collection
-        String[] authorities = {"p1"};
+        List<XcMenu> xcMenus = xcMenuMapper.selectPermissionByUserId(user.getId());
+        if (xcMenus == null || xcMenus.size() <= 0) {
+            log.info("用户没有权限:{}", user.getUsername());
+            throw new UsernameNotFoundException("用户没有权限");
+        }
+        String[] authorities = xcMenus.stream().map(XcMenu::getCode).toArray(String[]::new);
         //将user对象转json
         String password = user.getPassword();
         user.setPassword(null);
